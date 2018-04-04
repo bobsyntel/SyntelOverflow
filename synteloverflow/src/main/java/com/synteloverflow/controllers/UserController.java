@@ -51,7 +51,7 @@ public class UserController {
 		userService.saveWithUserRole(user);
 		return "redirect:/login";
 		}catch(ConstraintViolationException e) {
-			model.addAttribute("usernameErr", "username already exists");
+			model.addAttribute("usernameErr", e);
 			return "registrationPage";
 		}
 		

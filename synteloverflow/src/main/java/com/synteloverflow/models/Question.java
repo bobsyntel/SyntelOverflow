@@ -1,58 +1,77 @@
 package com.synteloverflow.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+
+
 @Entity
 @Table(name="question")
-public class Question {
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long id;
-private String title;
-private String content;
+public class Question extends ContentType {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="users_id")
 	private User user;
 	
-public Question () {}
 
-public Long getId() {
-	return id;
-}
 
-public void setId(Long id) {
-	this.id = id;
-}
+	@ManyToMany(fetch = FetchType.LAZY)
 
-public String getTitle() {
-	return title;
-}
+	@JoinTable(
+		name = "tag_question",
+		joinColumns = @JoinColumn(name="question_id"),
+		inverseJoinColumns = @JoinColumn(name="tag_id")
+		
+			)
+	private List<Tag> tags;
+		
+	public Question () {}
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
 
-public void setTitle(String title) {
-	this.title = title;
-}
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public Long getId() {
+		return id;
+	}
 
-public String getContent() {
-	return content;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public User getUser() {
+		return user;
+	}
 
-public void setContent(String content) {
-	this.content = content;
-}
-
-public User getUser() {
-	return user;
-}
-
-public void setUser(User user) {
-	this.user = user;
-}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }

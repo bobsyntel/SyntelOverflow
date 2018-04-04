@@ -22,74 +22,74 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="users")
 public class User {
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long id;
-@Size(min=3)
-private String username;
-@Size(min=5)
-private String password;
-
-@Transient
-private String passwordConfirmation;
-@Column(updatable=false)
-private Date createdAt;
-private Date updatedAt;
-@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
-private List<Question> questions;
-
-@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
-private List<Answer> answers;
-
-@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
-private List<Vote> votes;
-
-@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
-private List<Comment> comments;
-
-@ManyToMany(fetch = FetchType.EAGER)
-@JoinTable(
-	name = "users_roles",
-	joinColumns =  @JoinColumn(name = "users_id"),
-	inverseJoinColumns = @JoinColumn(name= "role_id")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	@Size(min=3)
+	private String username;
+	@Size(min=5)
+	private String password;
+	
+	@Transient
+	private String passwordConfirmation;
+	@Column(updatable=false)
+	private Date createdAt;
+	private Date updatedAt;
+	@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
+	private List<Question> questions;
+	
+	@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
+	private List<Answer> answers;
+	
+	@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
+	private List<Vote> votes;
+	
+	@OneToMany(mappedBy="user" ,fetch = FetchType.LAZY)
+	private List<Comment> comments;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "users_roles",
+		joinColumns =  @JoinColumn(name = "users_id"),
+		inverseJoinColumns = @JoinColumn(name= "role_id")
 	)
 
 	private List<Role> roles;
 
 
-public User() {}
-public List<Vote> getVotes() {
-	return votes;
-}
-public void setVotes(List<Vote> votes) {
-	this.votes = votes;
-}
-
-public List<Role> getRoles() {
-	return roles;
-}
-
-
-public void setRoles(List<Role> roles) {
-	this.roles = roles;
-}
-
-
-public List<Answer> getAnswers() {
-	return answers;
-}
-
-public void setAnswers(List<Answer> answers) {
-	this.answers = answers;
-}
-
-public List<Comment> getComments() {
-	return comments;
-}
-
-public void setComments(List<Comment> comments) {
-	this.comments = comments;
-}
+	public User() {}
+	public List<Vote> getVotes() {
+		return votes;
+	}
+	public void setVotes(List<Vote> votes) {
+		this.votes = votes;
+	}
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+	
+	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
+	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+	
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	
 	public List<Question> getQuestions() {
@@ -150,15 +150,15 @@ public void setComments(List<Comment> comments) {
 
 	
 	
-@PrePersist
-protected void onCreate() {
-	this.createdAt = new Date();
-}
-
-@PreUpdate
-protected void onUpdate() {
-	this.updatedAt = new Date();
-}
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+	
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
+	}
 
 }
 
